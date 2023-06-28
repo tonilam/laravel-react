@@ -43,5 +43,8 @@ jobs:
       - name: Generate app key
         run: php artisan key:generate
 
+      - name: Build frontend assets
+        run: npm install --legacy-peer-deps && npm run dev
+
       - name: Execute tests
         run: vendor/bin/phpunit
