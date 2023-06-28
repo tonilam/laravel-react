@@ -44,7 +44,8 @@ jobs:
         run: php artisan key:generate
 
       - name: Build frontend assets
-        run: npm install --legacy-peer-deps && npm run build && npx vite
+        run: npm install --legacy-peer-deps
+          npm run build
 
       - name: Execute tests
         run: vendor/bin/phpunit
