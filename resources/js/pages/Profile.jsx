@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import UserApi from '../apis/User';
 
 const Profile = () => {
     // ********** ********** ********** State ********** ********** **********
@@ -14,10 +15,27 @@ const Profile = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        alert(
-            `Name: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\nPhone: ${formData.phoneNumber}`,
-        );
+        UserApi.saveUser(formData)
+            .then((response) => {
+                alert(
+                    `Name: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\nPhone: ${formData.phoneNumber}`,
+                );
+            })
+            .catch((error) => {
+                alert('Error on saving your profile.');
+            });
     };
+
+    // ********** ********** ********** Hooks ********** ********** **********
+    // ********** ********** ********** ********** ********** ********** **********
+    useEffect(() => {
+        UserApi.getUsers().then(({ data }) => {
+            console.log(data);
+            const user = data.pop();
+
+            setFormData((prevFormData) => ({ ...prevFormData, email: user.email, phoneNumber: user.phone }));
+        });
+    }, []);
 
     // ********** ********** ********** Template ********** ********** **********
     // ********** ********** ********** ********** ********** ********** **********
