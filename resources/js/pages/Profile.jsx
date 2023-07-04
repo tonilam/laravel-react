@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import UserApi from '../apis/User';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Profile = () => {
     // ********** ********** ********** State ********** ********** **********
@@ -22,7 +24,7 @@ const Profile = () => {
                 );
             })
             .catch((error) => {
-                alert('Error on saving your profile.');
+                toast.error('Error on saving your profile.', { position: 'top-right', hideProgressBar: true });
             });
     };
 
@@ -30,10 +32,9 @@ const Profile = () => {
     // ********** ********** ********** ********** ********** ********** **********
     useEffect(() => {
         UserApi.getUsers().then(({ data }) => {
-            console.log(data);
             const user = data.pop();
-
             setFormData((prevFormData) => ({ ...prevFormData, email: user.email, phoneNumber: user.phone }));
+            toast.success('Your profile is ready.', { position: 'top-right', hideProgressBar: true });
         });
     }, []);
 
@@ -41,6 +42,7 @@ const Profile = () => {
     // ********** ********** ********** ********** ********** ********** **********
     return (
         <div className="p-2 md:px-5">
+            <ToastContainer />
             <form onSubmit={handleSubmit}>
                 <h1>
                     Hi {formData.firstName} {formData.lastName},
