@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import AppRouter from './AppRouter';
 import { BrowserRouter } from 'react-router-dom';
-import Menu from './components/Menu';
+import Headerbar from './components/Headerbar';
 
 function Main() {
     return (
         <div>
             <BrowserRouter>
-                <Menu />
+                <Headerbar />
                 <AppRouter />
             </BrowserRouter>
         </div>
