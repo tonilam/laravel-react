@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import UserApi from '../apis/User';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { SIMPLE_TOAST } from '../data/ToastSettings';
 
 const Profile = () => {
     // ********** ********** ********** State ********** ********** **********
@@ -24,18 +25,22 @@ const Profile = () => {
                 );
             })
             .catch((error) => {
-                toast.error('Error on saving your profile.', { position: 'top-right', hideProgressBar: true });
+                toast.error('Error on saving your profile.', SIMPLE_TOAST);
             });
     };
 
     // ********** ********** ********** Hooks ********** ********** **********
     // ********** ********** ********** ********** ********** ********** **********
     useEffect(() => {
-        UserApi.getUsers().then(({ data }) => {
-            const user = data.pop();
-            setFormData((prevFormData) => ({ ...prevFormData, email: user.email, phoneNumber: user.phone }));
-            toast.success('Your profile is ready.', { position: 'top-right', hideProgressBar: true });
-        });
+        UserApi.getUsers()
+            .then(({ data }) => {
+                const user = data.pop();
+                setFormData((prevFormData) => ({ ...prevFormData, email: user.email, phoneNumber: user.phone }));
+                toast.success('Your profile is ready.', SIMPLE_TOAST);
+            })
+            .catch((error) => {
+                toast.error('Error on loading your profile.');
+            });
     }, []);
 
     // ********** ********** ********** Template ********** ********** **********
@@ -48,47 +53,47 @@ const Profile = () => {
                     Hi {formData.firstName} {formData.lastName},
                 </h1>
                 <div className="flex flex-wrap flex-col md:flex-row">
-                    <div className="w-full md:w-1/2">
-                        <label>First Name:</label>
+                    <div className="w-full md:w-1/2 p-1 flex flex-col">
+                        <label className="text-xs font-bold">First Name</label>
                         <input
                             type="text"
                             name="firstName"
                             value={formData.firstName}
                             onChange={handleChange}
-                            className="m-2 border rounded-md shadow-sm"
+                            className="border rounded-md p-1 shadow-sm"
                         />
                     </div>
-                    <div className="w-full md:w-1/2">
-                        <label>Last Name:</label>
+                    <div className="w-full md:w-1/2 p-1 flex flex-col">
+                        <label className="text-xs font-bold">Last Name</label>
                         <input
                             type="text"
                             name="lastName"
                             value={formData.lastName}
                             onChange={handleChange}
-                            className="m-2 border rounded-md shadow-sm"
+                            className="border rounded-md p-1 shadow-sm"
                         />
                     </div>
-                    <div className="w-full md:w-1/2">
-                        <label>Email:</label>
+                    <div className="w-full md:w-1/2 p-1 flex flex-col">
+                        <label className="text-xs font-bold">Email</label>
                         <input
                             type="text"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="m-2 border rounded-md shadow-sm"
+                            className="border rounded-md p-1 shadow-sm"
                         />
                     </div>
-                    <div className="w-full md:w-1/2">
-                        <label>Phone:</label>
+                    <div className="w-full md:w-1/2 p-1 flex flex-col">
+                        <label className="text-xs font-bold">Phone</label>
                         <input
                             type="text"
                             name="phoneNumber"
                             value={formData.phoneNumber}
                             onChange={handleChange}
-                            className="m-2 border rounded-md shadow-sm"
+                            className="border rounded-md p-1 shadow-sm"
                         />
                     </div>
-                    <div className="w-full text-center md:text-right">
+                    <div className="w-full text-center md:text-right p-1">
                         <button type="submit" className="bg-teal-300 border px-2 py-1">
                             Submit
                         </button>
