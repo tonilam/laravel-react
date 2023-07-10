@@ -5,6 +5,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Links } from '../data/Links';
 import BigMenuTools from './BigMenus/BigMenuTools';
+import axios from 'axios';
 
 const Headerbar = () => {
     // ********** ********** ********** State ********** ********** **********
@@ -27,6 +28,12 @@ const Headerbar = () => {
 
     const closeBigMenu = () => {
         setBigMenu('');
+    };
+
+    const signOut = () => {
+        axios.post('/api/signout').then((response) => {
+            location.reload();
+        });
     };
 
     // ********** ********** ********** Hooks ********** ********** **********
@@ -165,6 +172,7 @@ const Headerbar = () => {
                                                             active ? 'bg-gray-100' : '',
                                                             'block px-4 py-2 text-sm text-gray-700',
                                                         )}
+                                                        onClick={signOut}
                                                     >
                                                         Sign out
                                                     </a>

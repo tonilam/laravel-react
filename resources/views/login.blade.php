@@ -11,7 +11,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         
         @viteReactRefresh
-        @vite(['resources/css/app.css', 'resources/js/Main.jsx'])
+        @vite(['resources/css/app.css', 'resources/js/Login.jsx'])
     </head>
     <body class="antialiased">
         <div id="app"></div>

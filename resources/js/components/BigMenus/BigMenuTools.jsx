@@ -4,11 +4,13 @@ import { NavLink } from 'react-router-dom';
 const BigMenuTools = () => {
     const tools = [
         { name: 'Clients' },
-        { name: 'Delivery' },
+        { name: 'Deliveries' },
         { name: 'Documents' },
-        { name: 'Inventory' },
+        { name: 'Inventories' },
         { name: 'Invoices' },
         { name: 'Staffs' },
+        { name: 'Users' },
+        { name: 'Workflows' },
     ];
     return (
         <div className="bg-teal-100 p-3 rounded-md sm:w-full lg:w-9/12 flex">

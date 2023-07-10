@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import './bootstrap';
 import AppRouter from './AppRouter';
 import { BrowserRouter } from 'react-router-dom';
 import Headerbar from './components/Headerbar';

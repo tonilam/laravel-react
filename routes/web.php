@@ -17,4 +17,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::view('/{path?}', 'app');
+Route::view('/', 'login')->name('login');
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::view('/{path?}', 'app');
+});

@@ -39,7 +39,7 @@ const Profile = () => {
                 toast.success('Your profile is ready.', SIMPLE_TOAST);
             })
             .catch((error) => {
-                toast.error('Error on loading your profile.');
+                toast.error('Error on loading your profile.', SIMPLE_TOAST);
             });
     }, []);
 
