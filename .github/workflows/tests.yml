@@ -23,16 +23,28 @@ jobs:
 
     name: PHP ${{ matrix.php }}
 
+    services:
+      # mysql-service Label used to access the service container
+      mysql:
+        # Docker Hub image (also with version)
+        image: mysql:5.7
+        env:
+          ## Accessing to Github secrets, where you can store your configuration
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: laravel_react_test
+        ## map the "external" 3306 port with the "internal" 3306
+        ports:
+          - 33306:3306
+        # Set health checks to wait until mysql database has started (it takes some seconds to start)
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Set up MySQL
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql database: 'laravel'
-          mysql user: root
-          mysql password: password
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -55,7 +67,17 @@ jobs:
           npm run build
 
       - name: Execute migrations
+        env:
+          DB_PORT: 33306
+          DB_DATABASE: laravel_react_test
+          DB_USER: root
+          DB_PASSWORD: password
         run: php artisan migrate
 
       - name: Execute tests
+        env:
+          DB_PORT: 33306
+          DB_DATABASE: laravel_react_test
+          DB_USER: root
+          DB_PASSWORD: password
         run: vendor/bin/phpunit

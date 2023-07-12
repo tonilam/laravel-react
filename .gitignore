@@ -7,7 +7,7 @@
 /vendor
 .env
 .env.backup
-.env.testingc
+.env.testing
 .env.production
 .phpunit.result.cache
 Homestead.json
